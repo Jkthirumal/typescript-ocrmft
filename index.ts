@@ -79,7 +79,8 @@ function sortDirection(direction = 'asc') {
     }
   }
 var userFunc = function getAccNum(userName, sortBy, sortDirection){
-  ( typeof userName === "string")? displayUserDetails(userName): '';
+  var data = ( typeof userName === "string")? displayUserDetails(userName): '';
+  // ( typeof sortBy === "function")? sortBy(userName); 
   
   return acctData.map(item=>{ return item.acctNum});
 
