@@ -33,16 +33,16 @@ var balance = [
     "AAA-1234" : "4582.25"
   },
   {
-    "AAA-4652" : "254.25"
+    "AAA-4652" : "25554.25"
   },
   {
     "AAA-7895" : "7596.25"
   },
   {
-    "AAA-5896" : "254.25"
+    "AAA-5896" : "254555.25"
   },
   {
-    "AAA-5684" : "254.25"
+    "AAA-5684" : "254444.25"
   }
 ];
 var userObj = {
@@ -89,12 +89,16 @@ function displayUserDetails(userName) {
   filterBy.call(userObj,'user', userName);
 }
 function filterBy(key, data) {
-  this.accInfo.filter(item=> { return item[key] === data; }).map(item=>{
-      console.log(item.acctNum+':'+balance[item.acctNum]);
+  var final = this.accInfo.filter(item=> { return item[key] === data; });
+  final.map(item => {
+      var test =  this.bal.find((bal)=>{ 
+        if(bal[item.acctNum]) {
+          console.log(item.acctNum+':'+bal[item.acctNum]);
+        }
+      });
   })
 }
-var test = userFunc('Bob');
+var test = userFunc('Alice');
  //sortDirection();
-console.log(test);
 
 
