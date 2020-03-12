@@ -49,14 +49,14 @@ var balance = [
 function getAccNum(userName, filterByName, direction) {
   var userData = typeof userName === "string" ? displayUserDetails(userName) : [];
   var filterdData = typeof filterByName === "string" ? sortBy(filterByName) : [];
-  var finalRes = typeof direction === "string" ? sortDirection(direction) : "";
+  var finalRes = direction? sortDirection(direction) : sortDirection();
   // console.log(filterdData);
   function sortBy(key) {
     return userData.map(item => {
       return item[filterByName];
     });
   }
-  function sortDirection(direction = "asc") {
+  function sortDirection(direction="asc") {
     var finalData = [];
     switch (direction) {
       case "asc":
@@ -92,5 +92,5 @@ function displayUserDetails(userName) {
     });
 }
 
-console.log(getAccNum("Alice", "acctNum", "asc"));
+console.log(getAccNum("Alice", "acctNum","desc"));
 //sortDirection();
