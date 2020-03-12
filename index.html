@@ -1,3 +1,136 @@
-<div id="app">
-  
-</div>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Page Title</title>
+	<style>
+		body {
+			font-family: Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.42857143;
+			color: #333;
+			background-color: #fff;
+		}
+
+		.arrow {
+			color: blue;
+			font-size: 14px;
+		}
+
+		b {
+			font-size: 16px;
+		}
+
+		label {
+			color: #7c7c7c;
+		}
+
+		.table-col-right {
+			background: #efefef;
+			text-align: right;
+			color: #333;
+		}
+
+		.div-table {
+			display: table;
+			width: auto;
+			border: 1px solid #666666;
+			/* border-spacing: 5px;*/
+			/* cellspacing:poor IE support for  this */
+			background-color: transparent;
+			text-align: left;
+			border: 10px solid #1a89ba;
+		}
+
+		.div-table-row {
+			display: table-row;
+			width: auto;
+			clear: both;
+		}
+
+		.div-table-col {
+			float: left;
+			/* fix for  buggy browsers */
+			display: table-column;
+			width: 200px;
+			border-top: 1px solid #ddd;
+		}
+
+		.div-table-col>.div-table-row:frist-child>.table-col-right {
+			background: #efefef;
+			color: #333;
+		}
+
+		.div-table-col:nth-child(even) {
+			text-align: right;
+		}
+
+		.div-table-col>h3 {
+			color: #0f8bc9;
+		}
+
+		.div-table-col:nth-child(2)>span.red {
+			color: #d6384c;
+		}
+
+		.green {
+			color: #44a167;
+		}
+
+		h3.table-header {
+			background: #f7f7f7;
+			color: #333;
+			margin: 0px;
+			padding-top: 19px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="div-table">
+		<div class="div-table-row">
+			<div class="div-table-col">
+				<h3 class="table-header">Account</h3>
+			</div>
+			<div class="div-table-col table-col-right">
+				<span class="arrow"> &#94;</span>
+				<b>Available Cash</b>
+				<br>
+				<label>Today's Change</label>
+			</div>
+		</div>
+		<div class="div-table-row">
+			<div class="div-table-col">
+				<h3>IRA - 5200</h3>
+			</div>
+			<div class="div-table-col">
+				<b>$5,763.36</b>
+				<br>
+				<span class="red">-0.08% / $8,916.69</span>
+			</div>
+		</div>
+		<div class="div-table-row">
+			<div class="div-table-col">
+				<h3>IRA - 5200</h3>
+			</div>
+			<div class="div-table-col">
+				<b>$5,763.36</b>
+				<br>
+				<span class="green">-0.08% / $8,916.69</span></div>
+		</div>
+		<div class="div-table-row">
+			<div class="div-table-col">
+				<h3>IRA - 5200</h3>
+			</div>
+			<div class="div-table-col">
+				<b>$5,763.36</b>
+				<br>
+				<span class="green">-0.08% / $8,916.69</span></div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
