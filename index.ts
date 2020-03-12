@@ -78,32 +78,26 @@ function sortDirection(direction = 'asc') {
       break;
     }
   }
-var userFunc = function getAccNum(userName, sortBy, sortDirection){
-  var userData = ( typeof userName === "string")? displayUserDetails(userName): [];
+  var userData;
+function getAccNum(userName, sortBy, sortDirection){
+  userData = ( typeof userName === "string")? displayUserDetails(userName): [];
   ( typeof sortBy === "function")? sortBy(userData):''; 
   
   return acctData.map(item=>{ return item.acctNum});
 
 }
-function sortBy(data) {
-  console.log('sor y ..', data);
+function sortBy(key) {
+   console.log(userData.filter(item=> { return item[key] === name; }));
 }
+
 function displayUserDetails(userName) {
   return acctData.filter(item=> { return item.user === userName; }).map(user=>{
-    return {...balance.find(item=> item[user.acctNum]),...user};
+    let result = {...{balance:balance.find(item=> item[user.acctNum])[user.acctNum]}, ...user};
+    return result;
   });
 }
-function filterBy(key, data) {
-  var final = this.accInfo.filter(item=> { return item[key] === data; });
-  final.map(item => {
-      var test =  this.bal.find((bal)=>{ 
-        if(bal[item.acctNum]) {
-          console.log(item.acctNum+'   :  '+bal[item.acctNum]);
-        }
-      });
-  })
-}
-var test = userFunc('Alice',sortBy);
+ 
+getAccNum('Alice',sortBy("acctNum"));
  //sortDirection();
 
 
