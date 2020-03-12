@@ -47,10 +47,8 @@ var balance = [
 ];
 
 function getAccNum(userName, filterByName, direction) {
-  var userData =
-    typeof userName === "string" ? displayUserDetails(userName) : [];
-  var filterdData =
-    typeof filterByName === "string" ? sortBy(filterByName) : "";
+  var userData = typeof userName === "string" ? displayUserDetails(userName) : [];
+  var filterdData = typeof filterByName === "string" ? sortBy(filterByName) : [];
   var finalRes = typeof direction === "string" ? sortDirection(direction) : "";
   // console.log(filterdData);
   function sortBy(key) {
@@ -94,5 +92,5 @@ function displayUserDetails(userName) {
     });
 }
 
-getAccNum("Alice", "acctNum", "asc");
+console.log(getAccNum("Alice", "acctNum", "asc"));
 //sortDirection();
