@@ -60,10 +60,12 @@ function getAccNum(userName, filterByName, direction) {
     var finalData = [];
     switch (direction) {
       case "asc":
-        finalData = filterdData.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
+        finalData = filterdData.sort(function(a,b) { return a - b;});
+       // finalData = filterdData.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
         break;
       case "desc":
-        finalData = filterdData.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
+        //finalData = filterdData.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
+        finalData = filterdData.sort(function(a,b) { return b - a;});
         break;
       default:
         console.log("No sort type mentioned.");
@@ -92,5 +94,5 @@ function displayUserDetails(userName) {
     });
 }
 
-console.log(getAccNum("Alice", "acctNum","desc"));
+console.log(getAccNum("Alice", "balance","asc"));
 //sortDirection();
