@@ -79,15 +79,19 @@ function sortDirection(direction = 'asc') {
     }
   }
 var userFunc = function getAccNum(userName, sortBy, sortDirection){
-  var data = ( typeof userName === "string")? displayUserDetails(userName): '';
-  // ( typeof sortBy === "function")? sortBy(userName); 
+  var userData = ( typeof userName === "string")? displayUserDetails(userName): [];
+  ( typeof sortBy === "function")? sortBy(userData):''; 
   
   return acctData.map(item=>{ return item.acctNum});
 
 }
+function sortBy(data) {
+  console.log('sor y ..', data);
+}
 function displayUserDetails(userName) {
-  console.log(userName+'\'s '+'Account Details:'+'\n'+'----------------------------'+'\n'+'Account Number : Balance'+'\n');
-  filterBy.call(userObj,'user', userName);
+  return acctData.filter(item=> { return item.user === userName; }).map(user=>{
+    return {...balance.find(item=> item[user.acctNum]),...user};
+  });
 }
 function filterBy(key, data) {
   var final = this.accInfo.filter(item=> { return item[key] === data; });
@@ -99,7 +103,7 @@ function filterBy(key, data) {
       });
   })
 }
-var test = userFunc('Alice');
+var test = userFunc('Alice',sortBy);
  //sortDirection();
 
 
