@@ -93,7 +93,7 @@ function filterBy(key, data) {
   final.map(item => {
       var test =  this.bal.find((bal)=>{ 
         if(bal[item.acctNum]) {
-          console.log(item.acctNum+':'+bal[item.acctNum]);
+          console.log(item.acctNum+'   :  '+bal[item.acctNum]);
         }
       });
   })
