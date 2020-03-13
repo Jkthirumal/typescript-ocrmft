@@ -43,21 +43,27 @@ var balance = [
 ];
 
 function getAccNum(userName, params, sortByCB, sortDirectionCB) {
-  console.log('Details of '+ userName);
+  console.log("Details of " + userName);
   var userData =
     typeof userName === "string" ? displayUserDetails(userName) : [];
-  console.log(userData.map(item=>item));
+  console.log(userData.map(item => item));
   if (userData.length > 0) {
     //Sory by callback
-    var res = sortByCB({ data: userData, options: params });
-    if (res.length > 0) {
-      //Sort direction callback
-      var sortDirection =
-        typeof sortDirectionCB === "function" ? params.sortDirection : "asc";
-      var finalRes = sortDirectionCB({ data: res, sort: sortDirection });
-      finalRes.map(item => {
-        console.log(item);
-      });
+    if (sortByCB) {
+      var res = sortByCB({ data: userData, options: params });
+      if (res.length > 0) {
+        //Sort direction callback
+        if (sortDirectionCB) {
+          var sortDirection =
+            typeof sortDirectionCB === "function"
+              ? params.sortDirection
+              : "asc";
+          var finalRes = sortDirectionCB({ data: res, sort: sortDirection });
+          finalRes.map(item => {
+            console.log(item);
+          });
+        }
+      }
     }
   }
 }
@@ -66,7 +72,6 @@ function sortBy(obj) {
     return item[obj.options.sortby];
   });
 }
-
 
 function isFloat(n) {
   return Number(n) === n && n % 1 !== 0;
