@@ -1,6 +1,5 @@
 // Import stylesheets
 import "./style.css";
- 
 
 var acctData = [
   {
@@ -42,51 +41,62 @@ var balance = [
     "AAA-5684": "254444.25"
   }
 ];
- 
-function getAccNum(userName, options,  sortByCB, sortDirectionCB) {
-  var userData = typeof userName === "string" ? displayUserDetails(userName) : [];
-  if(userData.length>0)
-  {
+
+function getAccNum(userName, params, sortByCB, sortDirectionCB) {
+  console.log('Details of '+ userName);
+  var userData =
+    typeof userName === "string" ? displayUserDetails(userName) : [];
+  console.log(userData.map(item=>item));
+  if (userData.length > 0) {
     //Sory by callback
-    var res = sortByCB({"data": userData, "options":options});
-    if(res.length >0){
+    var res = sortByCB({ data: userData, options: params });
+    if (res.length > 0) {
       //Sort direction callback
-     var sortDirection =  typeof sortDirectionCB === "function" ? options.sortDirection:  "asc";
-     var finalRes =  sortDirectionCB({"data": res, "sort":sortDirection})
-     finalRes.map(item => {
-      console.log(item);
-    });
+      var sortDirection =
+        typeof sortDirectionCB === "function" ? params.sortDirection : "asc";
+      var finalRes = sortDirectionCB({ data: res, sort: sortDirection });
+      finalRes.map(item => {
+        console.log(item);
+      });
     }
   }
-} 
-function sortBy(obj){
-  return obj.data.map(item => {
-      return item[obj.options.sortby];
-    });
 }
- 
-getAccNum("Alice", {
-    sortby: "balance",
-    sortDirection: "dsc"
-}, sortBy, sortDirection);
+function sortBy(obj) {
+  return obj.data.map(item => {
+    return item[obj.options.sortby];
+  });
+}
 
+
+function isFloat(n) {
+  return Number(n) === n && n % 1 !== 0;
+}
 function sortDirection(params) {
-    var finalData = [];
-    switch (params.sort) {
-      case "asc":
-        finalData = params.res.sort(function(a,b) { return a - b;});
-       // finalData = filterdData.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
-        break;
-      case "desc":
-        //finalData = filterdData.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
-        finalData = params.res.sort(function(a,b) { return b - a;});
-        break;
-      default:
-        break;
-    }
-    return finalData;
+  var finalData = [];
+  switch (params.sort) {
+    case "asc":
+      if (isFloat(params.data[0])) {
+        finalData = params.data.sort(function(a, b) {
+          return a - b;
+        });
+      } else {
+        finalData = params.data.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
+      }
+      break;
+    case "desc":
+      if (isFloat(params.data[0])) {
+        finalData = params.data.sort(function(a, b) {
+          return b - a;
+        });
+      } else {
+        finalData = params.data.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
+      }
+      break;
+    default:
+      break;
   }
-
+  return finalData;
+}
 
 function displayUserDetails(userName) {
   return acctData
@@ -101,6 +111,13 @@ function displayUserDetails(userName) {
       return result;
     });
 }
-
-
-//sortDirection();
+// Sample input sortby: "acctNum", sortby: "balance"
+getAccNum(
+  "Alice",
+  {
+    sortby: "acctNum",
+    sortDirection: "desc"
+  },
+  sortBy,
+  sortDirection
+);
