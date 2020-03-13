@@ -43,8 +43,8 @@ var balance = [
 ];
 
 function getAccNum(userName, params, sortByCB, sortDirectionCB) {
+  console.log("User Info:");
   acctData.map(item => {
-    console.log("User Info:");
     console.log(
       "Name: " +
         item.user +
