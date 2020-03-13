@@ -42,40 +42,51 @@ var balance = [
     "AAA-5684": "254444.25"
   }
 ];
-
-function getAccNum(userName, filterByName, direction) {
+ 
+function getAccNum(userName, options,  sortByCB, sortDirectionCB) {
   var userData = typeof userName === "string" ? displayUserDetails(userName) : [];
-  var filterdData = typeof filterByName === "string" ? sortBy(filterByName) : [];
-  var finalRes = direction? sortDirection(direction) : sortDirection();
-  // console.log(filterdData);
-  function sortBy(key) {
-    return userData.map(item => {
-      return item[filterByName];
+  if(userData.length>0)
+  {
+    //Sory by callback
+    var res = sortByCB({"data": userData, "options":options});
+    if(res.length >0){
+      //Sort direction callback
+     var sortDirection =  typeof sortDirectionCB === "function" ? options.sortDirection:  "asc";
+     var finalRes =  sortDirectionCB({"data": res, "sort":sortDirection})
+     finalRes.map(item => {
+      console.log(item);
     });
+    }
   }
-  function sortDirection(direction="asc") {
+} 
+function sortBy(obj){
+  return obj.data.map(item => {
+      return item[obj.options.sortby];
+    });
+}
+ 
+getAccNum("Alice", {
+    sortby: "balance",
+    sortDirection: "dsc"
+}, sortBy, sortDirection);
+
+function sortDirection(params) {
     var finalData = [];
-    switch (direction) {
+    switch (params.sort) {
       case "asc":
-        finalData = filterdData.sort(function(a,b) { return a - b;});
+        finalData = params.res.sort(function(a,b) { return a - b;});
        // finalData = filterdData.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
         break;
       case "desc":
         //finalData = filterdData.sort((a, b) => (a < b ? 1 : b < a ? -1 : 0));
-        finalData = filterdData.sort(function(a,b) { return b - a;});
+        finalData = params.res.sort(function(a,b) { return b - a;});
         break;
       default:
-        console.log("No sort type mentioned.");
         break;
     }
-    finalData.map(item => {
-      console.log(item);
-    });
+    return finalData;
   }
-  return acctData.map(item => {
-    return item.acctNum;
-  });
-}
+
 
 function displayUserDetails(userName) {
   return acctData
@@ -91,5 +102,5 @@ function displayUserDetails(userName) {
     });
 }
 
-console.log(getAccNum("Alice", "balance","asc"));
+
 //sortDirection();
