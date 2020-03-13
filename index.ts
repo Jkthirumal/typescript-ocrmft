@@ -43,7 +43,19 @@ var balance = [
 ];
 
 function getAccNum(userName, params, sortByCB, sortDirectionCB) {
-  console.log("Details of " + userName);
+  acctData.map(item => {
+    console.log("User Info:");
+    console.log(
+      "Name: " +
+        item.user +
+        " Acct No: " +
+        item.acctNum +
+        " Balance: " +
+        balance.find(bal => bal[item.acctNum])[item.acctNum]
+    );
+  });
+  if(userName){
+    console.log("Details of " + userName);
   var userData =
     typeof userName === "string" ? displayUserDetails(userName) : [];
   console.log(userData.map(item => item));
@@ -66,7 +78,10 @@ function getAccNum(userName, params, sortByCB, sortDirectionCB) {
       }
     }
   }
+  }
+  
 }
+
 function sortBy(obj) {
   return obj.data.map(item => {
     return item[obj.options.sortby];
